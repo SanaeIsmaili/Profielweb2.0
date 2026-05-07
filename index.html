@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sanae Ismaili — Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Space+Grotesk:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --bg: #f5f2ec;
+    --bg-warm: #ede8de;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4744;
+    --ink-mute: #8a857d;
+    --rule: #d8d2c4;
+    --accent: oklch(0.62 0.12 65);
+    --accent-soft: oklch(0.62 0.12 65 / 0.12);
+    --sage: oklch(0.62 0.06 145);
+    --paper: #faf8f3;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .display { font-family: 'Newsreader', serif; font-weight: 300; letter-spacing: -0.02em; line-height: 1; }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ============ LAYOUT ============ */
+  section { padding: 140px 48px; position: relative; }
+  .container { max-width: 1240px; margin: 0 auto; }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink-mute);
+    margin-bottom: 56px;
+  }
+  .section-label-num { color: var(--accent); }
+  .section-label-rule { flex: 1; height: 1px; background: var(--rule); }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    padding: 100px 48px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: end;
+  }
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: var(--paper);
+    margin-bottom: 36px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    width: fit-content;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    position: relative;
+  }
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: var(--sage);
+    opacity: 0.3;
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  .hero h1 {
+    font-size: clamp(64px, 11vw, 168px);
+    margin-bottom: 40px;
+  }
+  .hero h1 .it { font-style: italic; font-weight: 400; color: var(--accent); }
+  .hero-sub {
+    max-width: 520px;
+    font-size: 18px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+  .btn-arrow { width: 14px; height: 14px; transition: transform 0.2s; }
+  .btn:hover .btn-arrow { transform: translate(2px, -2px); }
+
+  .hero-meta {
+    text-align: right;
+    color: var(--ink-mute);
+    font-size: 12px;
+    line-height: 1.8;
+    border-left: 1px solid var(--rule);
+    padding-left: 28px;
+  }
+  .hero-meta-item { margin-bottom: 18px; }
+  .hero-meta-item:last-child { margin-bottom: 0; }
+  .hero-meta-label { display: block; margin-bottom: 4px; }
+  .hero-meta-val { color: var(--ink); font-family: 'Newsreader', serif; font-size: 16px; letter-spacing: -0.01em; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    color: var(--ink-mute);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-scroll-line {
+    width: 40px; height: 1px;
+    background: var(--ink-mute);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-scroll-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ink);
+    transform: translateX(-100%);
+    animation: scrollLine 2.4s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* ============ ABOUT ============ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .about h2 {
+    font-size: clamp(40px, 5vw, 72px);
+    margin-bottom: 48px;
+    max-width: 14ch;
+  }
+  .about-prose p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 22px;
+    max-width: 56ch;
+  }
+  .about-prose p:first-of-type::first-letter {
+    font-family: 'Newsreader', serif;
+    font-size: 64px;
+    float: left;
+    line-height: 0.85;
+    padding: 6px 10px 0 0;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  .about-facts {
+    border-top: 1px solid var(--rule);
+  }
+  .fact {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .fact-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .fact-value {
+    font-family: 'Newsreader', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .fact-value small { display: block; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-mute); margin-top: 4px; letter-spacing: 0; }
+
+  /* ============ SKILLS ============ */
+  .skills-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+  .skills-head h2 {
+    font-size: clamp(40px, 5vw, 72px);
+    max-width: 12ch;
+  }
+  .skills-head p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 44ch;
+  }
+  .skills-stack {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+  .skill-row {
+    padding: 36px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 60px;
+    align-items: center;
+    transition: padding-left 0.3s;
+  }
+  .skill-row:hover { padding-left: 8px; }
+  .skill-row-head { display: flex; align-items: baseline; gap: 16px; }
+  .skill-cat {
+    font-family: 'Newsreader', serif;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  .skill-cat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .skill-tag {
+    padding: 8px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    background: var(--paper);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--ink); color: var(--ink); transform: translateY(-1px); }
+
+  /* ============ EXPERIENCE ============ */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 60px;
+    padding: 48px 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+    transition: padding-left 0.3s;
+    cursor: default;
+    position: relative;
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--rule); }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s;
+  }
+  .exp-item:hover::before { transform: scaleY(1); }
+  .exp-item:hover { padding-left: 8px; }
+  .exp-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  .exp-title {
+    font-family: 'Newsreader', serif;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .exp-org {
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+  .exp-bullets {
+    list-style: none;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .exp-bullets li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .exp-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 11px;
+    width: 8px; height: 1px;
+    background: var(--ink-mute);
+  }
+
+  /* ============ CV ============ */
+  .cv-wrap {
+    background: var(--ink);
+    color: var(--bg);
+    margin: 0 -48px;
+    padding: 140px 48px;
+  }
+  .cv-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .cv-wrap .section-label { color: rgba(255,255,255,0.5); }
+  .cv-wrap .section-label-rule { background: rgba(255,255,255,0.15); }
+  .cv-wrap h2 {
+    font-size: clamp(40px, 5vw, 72px);
+    margin-bottom: 32px;
+    color: var(--bg);
+  }
+  .cv-wrap h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
+  .cv-wrap p {
+    color: rgba(255,255,255,0.7);
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 36px;
+    max-width: 44ch;
+  }
+  .cv-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .cv-meta span { display: flex; align-items: center; gap: 8px; }
+  .cv-meta span::before { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
+  .cv-download {
+    background: var(--bg);
+    color: var(--ink);
+    padding: 16px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .cv-download:hover { background: var(--accent); color: var(--bg); transform: translateY(-1px); }
+
+  .cv-preview {
+    aspect-ratio: 3/4;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+    transform: rotate(-2deg);
+    transition: transform 0.4s ease;
+  }
+  .cv-preview:hover { transform: rotate(0deg) scale(1.02); }
+  .cv-preview-inner {
+    padding: 36px 32px;
+    color: var(--ink);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .cv-preview-name {
+    font-family: 'Newsreader', serif;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .cv-preview-role {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 24px;
+  }
+  .cv-preview-rule { height: 1px; background: var(--rule); margin-bottom: 18px; }
+  .cv-preview-section {
+    margin-bottom: 18px;
+  }
+  .cv-preview-h {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .cv-preview-line {
+    height: 6px;
+    background: var(--rule);
+    margin-bottom: 6px;
+    border-radius: 1px;
+  }
+  .cv-preview-line.short { width: 60%; }
+  .cv-preview-line.med { width: 80%; }
+  .cv-preview-tag-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+  .cv-preview-tag { padding: 2px 8px; border: 1px solid var(--rule); border-radius: 999px; font-size: 8px; color: var(--ink-soft); }
+  .cv-preview-corner {
+    position: absolute;
+    top: 16px; right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-mute);
+    letter-spacing: 0.1em;
+  }
+
+  /* ============ CONTACT ============ */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .contact h2 {
+    font-size: clamp(48px, 7vw, 112px);
+    margin-bottom: 32px;
+    line-height: 0.95;
+  }
+  .contact h2 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .contact-lead {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    margin-bottom: 0;
+  }
+  .contact-card {
+    border-top: 1px solid var(--ink);
+  }
+  .contact-row {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    transition: padding-left 0.2s;
+  }
+  .contact-row:hover { padding-left: 8px; }
+  .contact-row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .contact-row-value {
+    font-family: 'Newsreader', serif;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .contact-row-action {
+    font-size: 11px;
+    color: var(--ink-mute);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .contact-row:hover .contact-row-action { color: var(--accent); }
+  .contact-row.copied .contact-row-action { color: var(--sage); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 880px) {
+    section { padding: 100px 24px; }
+    .hero { padding: 80px 24px 60px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-meta { text-align: left; border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 24px; }
+    .about-grid, .skills-head, .cv-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill-block:nth-child(odd) { padding-right: 0; border-right: none; }
+    .skill-block:nth-child(even) { padding-left: 0; }
+    .exp-item { grid-template-columns: 1fr; gap: 16px; }
+    .skill-row { grid-template-columns: 1fr; gap: 20px; }
+    .cv-wrap { margin: 0 -24px; padding: 100px 24px; }
+    .contact-row { grid-template-columns: 80px 1fr; }
+    .contact-row-action { grid-column: 2; padding-top: 4px; }
+    .hero-scroll { left: 24px; bottom: 24px; }
+  }
+
+  .cv-image-wrap {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+    transition: transform 0.4s ease;
+    text-decoration: none;
+  }
+  .cv-image-wrap:hover { transform: translateY(-4px) scale(1.01); }
+  .cv-image { display: block; width: 100%; height: auto; }
+  .cv-image-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 18px 22px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .cv-image-wrap:hover .cv-image-overlay { opacity: 1; }
+
+  .cv-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 48px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .cv-simple-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+  }
+  .cv-simple-name {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    color: var(--bg);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .cv-simple-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+  }
+
+  /* Tweak hide */
+  .section-block[data-hidden="true"] { display: none !important; }
+
+  /* Reveal */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal].in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero section-block" id="hero" data-section="hero" data-screen-label="01 Hero">
+  <div class="hero-grid">
+    <div>
+      <h1 class="display" data-reveal>
+        Sanae<br/>
+        Ismaili<span class="it">.</span>
+      </h1>
+      <p class="hero-sub" data-reveal>
+        MBO 4 Software Development — eerstejaars met een voorliefde voor het web.
+        Ik bouw doordachte, functionele interfaces met HTML, CSS, JavaScript en PHP, tot ik klaar ben met het 3-jarige traject.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a href="#cv" class="btn btn-primary">
+          Bekijk mijn CV
+          <svg class="btn-arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 11L11 3M5 3h6v6"/>
+          </svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost">Neem contact op</a>
+      </div>
+    </div>
+    <div class="hero-meta" data-reveal>
+      <div class="hero-meta-item">
+        <span class="mono hero-meta-label">Locatie</span>
+        <span class="hero-meta-val">Nieuwkoop, NL</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="mono hero-meta-label">Focus</span>
+        <span class="hero-meta-val">Front-end & Back-end</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OVER MIJ ============ -->
+<section class="about section-block" id="over-mij" data-section="about" data-screen-label="02 Over mij">
+  <div class="container">
+    <div class="section-label mono" data-reveal>
+      <span class="section-label-num">01</span>
+      <span>Wie ben ik</span>
+      <span class="section-label-rule"></span>
+    </div>
+    <div class="about-grid">
+      <div data-reveal>
+        <h2 class="display">Een gemotiveerde developer.</h2>
+        <div class="about-prose">
+          <p>Programmeren begon voor mij als nieuwsgierigheid en groeide al snel uit tot een passie. Op het MBO 4 Software Development leer ik elke dag bij — van semantische HTML tot databases — en ik krijg energie van het moment waarop iets eindelijk werkt zoals ik het bedacht had.</p>
+          <p>Naast school werk ik bij Jumbo Supermarkten. Daar heb ik geleerd hoe je klantvriendelijk blijft onder druk, verantwoordelijkheid neemt en een team draaiende houdt. Die werkhouding neem ik mee naar elke regel code die ik schrijf.</p>
+          <p>Ik ben op zoek naar een stageplek waar ik mijn technische kennis kan toepassen en kan groeien als ontwikkelaar. Ik leer snel, vraag hulp wanneer nodig en werk graag nauwkeurig.</p>
+        </div>
+      </div>
+      <div class="about-facts" data-reveal>
+        <div class="fact">
+          <span class="fact-label">Geboren</span>
+          <span class="fact-value">16 nov 2008<small>17 jaar</small></span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Woonplaats</span>
+          <span class="fact-value">Nieuwkoop<small>Zuid-Holland</small></span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Opleiding</span>
+          <span class="fact-value">Software Development<small>MBO 4 — leerjaar 1</small></span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Talen</span>
+          <span class="fact-value">Nederlands<small>Engels — vloeiend</small></span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Status</span>
+          <span class="fact-value">Open voor stage<small>Beschikbaar 2026</small></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VAARDIGHEDEN ============ -->
+<section class="section-block" id="vaardigheden" data-section="skills" data-screen-label="03 Vaardigheden">
+  <div class="container">
+    <div class="section-label mono" data-reveal>
+      <span class="section-label-num">02</span>
+      <span>Wat ik kan</span>
+      <span class="section-label-rule"></span>
+    </div>
+    <div class="skills-head">
+      <h2 class="display" data-reveal>Vaardigheden, eerlijk in kaart gebracht.</h2>
+      <p data-reveal>Een overzicht van mijn huidige technische en persoonlijke skills. Ik ontwikkel me elke dag verder — onderstaande percentages weerspiegelen waar ik nu sta, niet waar ik blijf staan.</p>
+    </div>
+    <div class="skills-stack">
+      <div class="skill-row" data-reveal>
+        <div class="skill-row-head">
+          <span class="skill-cat-num">01</span>
+          <h3 class="skill-cat">Frontend</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Responsive Design</span>
+        </div>
+      </div>
+
+      <div class="skill-row" data-reveal>
+        <div class="skill-row-head">
+          <span class="skill-cat-num">02</span>
+          <h3 class="skill-cat">Backend &amp; Data</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Databases</span>
+        </div>
+      </div>
+
+      <div class="skill-row" data-reveal>
+        <div class="skill-row-head">
+          <span class="skill-cat-num">03</span>
+          <h3 class="skill-cat">Tools &amp; Software</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">Git (basis)</span>
+          <span class="skill-tag">Browser DevTools</span>
+          <span class="skill-tag">Figma (basis)</span>
+        </div>
+      </div>
+
+      <div class="skill-row" data-reveal>
+        <div class="skill-row-head">
+          <span class="skill-cat-num">04</span>
+          <h3 class="skill-cat">Persoonlijk</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Klantvriendelijk</span>
+          <span class="skill-tag">Nauwkeurig</span>
+          <span class="skill-tag">Verantwoordelijk</span>
+          <span class="skill-tag">Doorzettingsvermogen</span>
+          <span class="skill-tag">Teamspeler</span>
+          <span class="skill-tag">Leergierig</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WERKERVARING ============ -->
+<section class="section-block" id="werkervaring" data-section="experience" data-screen-label="04 Werkervaring">
+  <div class="container">
+    <div class="section-label mono" data-reveal>
+      <span class="section-label-num">03</span>
+      <span>Tijdlijn</span>
+      <span class="section-label-rule"></span>
+    </div>
+    <div class="skills-head">
+      <h2 class="display" data-reveal>Werkervaring &amp; opleiding.</h2>
+      <p data-reveal>Een korte tijdlijn van waar ik gewerkt en geleerd heb. Elke regel is een stap richting een carrière in software development.</p>
+    </div>
+    <div class="exp-list">
+      <article class="exp-item" data-reveal>
+        <div class="exp-date">2025 — heden</div>
+        <div>
+          <h3 class="exp-title">Software Development</h3>
+          <div class="exp-org">MBO niveau 4 — Eerste leerjaar</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Fundamenten van JavaScript, HTML, CSS en PHP</li>
+          <li>Werken met databases en moderne ontwikkelomgevingen</li>
+          <li>Project-gericht leren in teamverband</li>
+        </ul>
+      </article>
+
+      <article class="exp-item" data-reveal>
+        <div class="exp-date">Februari 2023 — heden</div>
+        <div>
+          <h3 class="exp-title">Medewerker winkelvloer</h3>
+          <div class="exp-org">Jumbo Supermarkten</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Helpen en adviseren van klanten op de winkelvloer</li>
+          <li>Vakken vullen en zorgen voor een nette winkel</li>
+          <li>Controleren van houdbaarheidsdata en productkwaliteit</li>
+          <li>Samenwerken met collega's tijdens drukke momenten</li>
+        </ul>
+      </article>
+
+      <article class="exp-item" data-reveal>
+        <div class="exp-date">2025</div>
+        <div>
+          <h3 class="exp-title">VMBO-TL Diploma</h3>
+          <div class="exp-org">Middelbare school</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Diploma behaald in 2025</li>
+          <li>Doorstroom naar MBO niveau 4</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CV ============ -->
+<div class="cv-wrap section-block" id="cv" data-section="cv" data-screen-label="05 CV">
+  <div class="section-label mono container" data-reveal>
+    <span class="section-label-num" style="color: var(--accent);">04</span>
+    <span>Curriculum Vitae</span>
+    <span class="section-label-rule"></span>
+  </div>
+  <div class="cv-grid">
+    <div data-reveal>
+      <h2 class="display">Mijn volledige <em>CV</em>.</h2>
+      <p>Een compleet beeld van mijn opleiding, werkervaring en vaardigheden — netjes opgemaakt en klaar voor je inbox of printer.</p>
+      <div class="cv-meta">
+        <span>PDF · 1 pagina</span>
+        <span>Bijgewerkt mei 2025</span>
+      </div>
+      <a href="https://sanaeismaili.github.io/Sanaesprofielweb/CV_Sanae_Ismaili.pdf" class="cv-download" target="_blank" rel="noopener">
+        Download CV
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M7 2v8M3 7l4 4 4-4M2 12h10"/>
+        </svg>
+      </a>
+    </div>
+    <div data-reveal>
+      <a href="https://sanaeismaili.github.io/Sanaesprofielweb/CV_Sanae_Ismaili.pdf" target="_blank" rel="noopener" class="cv-image-wrap">
+        <img src="cv-sanae.png" alt="CV van Sanae Ismaili" class="cv-image" />
+        <span class="cv-image-overlay">Open PDF</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact section-block" id="contact" data-section="contact" data-screen-label="06 Contact">
+  <div class="container">
+    <div class="section-label mono" data-reveal>
+      <span class="section-label-num">05</span>
+      <span>Contact</span>
+      <span class="section-label-rule"></span>
+    </div>
+    <div class="contact-grid">
+      <div data-reveal>
+        <h2 class="display">Laten we<br/><em>kennismaken.</em></h2>
+        <p class="contact-lead">Geïnteresseerd in mijn profiel voor een stageplek of wil je gewoon kennismaken? Stuur me een bericht — ik reageer doorgaans binnen 48 uur.</p>
+      </div>
+      <div class="contact-card" data-reveal>
+        <div class="contact-row" data-copy="sanaeismaili0@gmail.com">
+          <span class="contact-row-label">E-mail</span>
+          <span class="contact-row-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2350424d42464a504e424a4f4a1363444e424a4f0d404c4e">[email&#160;protected]</a></span>
+          <span class="contact-row-action">Kopieer</span>
+        </div>
+        <div class="contact-row" data-copy="+31 6 48501567">
+          <span class="contact-row-label">Telefoon</span>
+          <span class="contact-row-value">+31 6 48 50 15 67</span>
+          <span class="contact-row-action">Kopieer</span>
+        </div>
+        <div class="contact-row" style="cursor: default;">
+          <span class="contact-row-label">Locatie</span>
+          <span class="contact-row-value">Nieuwkoop, NL</span>
+          <span class="contact-row-action">Bezoekbaar</span>
+        </div>
+        <div class="contact-row" style="cursor: default;">
+          <span class="contact-row-label">Status</span>
+          <span class="contact-row-value">Beschikbaar voor stage</span>
+          <span class="contact-row-action" style="color: var(--sage);">● Open</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Reveal on scroll
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+  // Copy to clipboard on contact rows
+  document.querySelectorAll('[data-copy]').forEach(row => {
+    row.addEventListener('click', async () => {
+      const text = row.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+        const action = row.querySelector('.contact-row-action');
+        const original = action.textContent;
+        action.textContent = 'Gekopieerd';
+        row.classList.add('copied');
+        setTimeout(() => {
+          action.textContent = original;
+          row.classList.remove('copied');
+        }, 1600);
+      } catch {}
+    });
+  });
+</script>
+
+<div id="tweaks-root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "showHero": true,
+  "showAbout": true,
+  "showSkills": true,
+  "showExperience": true,
+  "showCV": true,
+  "showContact": true,
+  "palette": [
+    "#f5f2ec",
+    "#1a1a1a",
+    "#c08552"
+  ],
+  "accent": "#c08552",
+  "displayFont": "Newsreader",
+  "bodyFont": "Inter",
+  "density": 140,
+  "radius": 999,
+  "showStatusPill": true,
+  "showHeroMeta": true,
+  "showDropCap": true,
+  "cvTilt": -2
+}/*EDITMODE-END*/;
+
+const FONT_PAIRS = {
+  'Newsreader': { stack: "'Newsreader', serif" },
+  'Fraunces': { stack: "'Fraunces', serif" },
+  'Instrument Serif': { stack: "'Instrument Serif', serif" }
+};
+const BODY_FONTS = {
+  'Inter': "'Inter', sans-serif",
+  'Space Grotesk': "'Space Grotesk', sans-serif"
+};
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--bg', t.palette[0]);
+    root.style.setProperty('--ink', t.palette[1]);
+    root.style.setProperty('--accent', t.accent || t.palette[2]);
+    // derive softer ink + paper
+    root.style.setProperty('--paper', mix(t.palette[0], '#ffffff', 0.5));
+    root.style.setProperty('--bg-warm', mix(t.palette[0], t.palette[1], 0.06));
+    root.style.setProperty('--ink-soft', mix(t.palette[1], t.palette[0], 0.25));
+    root.style.setProperty('--ink-mute', mix(t.palette[1], t.palette[0], 0.55));
+    root.style.setProperty('--rule', mix(t.palette[1], t.palette[0], 0.82));
+
+    document.body.style.fontFamily = BODY_FONTS[t.bodyFont] || BODY_FONTS['Inter'];
+    document.querySelectorAll('.display, .hero h1, .about h2, .skills-head h2, .cv-wrap h2, .contact h2, .skill-cat, .exp-title, .fact-value, .hero-meta-val, .contact-row-value, .cv-preview-name')
+      .forEach(el => { el.style.fontFamily = (FONT_PAIRS[t.displayFont] || FONT_PAIRS['Newsreader']).stack; });
+
+    document.querySelectorAll('section, .cv-wrap').forEach(el => {
+      el.style.paddingTop = t.density + 'px';
+      el.style.paddingBottom = t.density + 'px';
+    });
+
+    document.querySelectorAll('.btn, .cv-download, .skill-tag, .hero-status, .nav-cta').forEach(el => {
+      el.style.borderRadius = (t.radius === 0 ? '0' : t.radius + 'px');
+    });
+
+    // Section visibility
+    const map = { hero: t.showHero, about: t.showAbout, skills: t.showSkills, experience: t.showExperience, cv: t.showCV, contact: t.showContact };
+    Object.entries(map).forEach(([k,v]) => {
+      const el = document.querySelector(`[data-section="${k}"]`);
+      if (el) el.dataset.hidden = !v;
+    });
+
+    const pill = document.querySelector('.hero-status');
+    if (pill) pill.style.display = t.showStatusPill ? '' : 'none';
+    const meta = document.querySelector('.hero-meta');
+    if (meta) meta.style.display = t.showHeroMeta ? '' : 'none';
+
+    document.body.classList.toggle('no-dropcap', !t.showDropCap);
+
+    const cv = document.querySelector('.cv-simple');
+    if (cv) cv.style.transform = '';
+  }, [t]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Sections">
+        <TweakToggle label="Hero" value={t.showHero} onChange={v => setTweak('showHero', v)} />
+        <TweakToggle label="Over mij" value={t.showAbout} onChange={v => setTweak('showAbout', v)} />
+        <TweakToggle label="Vaardigheden" value={t.showSkills} onChange={v => setTweak('showSkills', v)} />
+        <TweakToggle label="Werkervaring" value={t.showExperience} onChange={v => setTweak('showExperience', v)} />
+        <TweakToggle label="CV" value={t.showCV} onChange={v => setTweak('showCV', v)} />
+        <TweakToggle label="Contact" value={t.showContact} onChange={v => setTweak('showContact', v)} />
+      </TweakSection>
+
+      <TweakSection label="Hero details">
+        <TweakToggle label="Status pill" value={t.showStatusPill} onChange={v => setTweak('showStatusPill', v)} />
+        <TweakToggle label="Meta sidebar" value={t.showHeroMeta} onChange={v => setTweak('showHeroMeta', v)} />
+        <TweakToggle label="Drop cap" value={t.showDropCap} onChange={v => setTweak('showDropCap', v)} />
+      </TweakSection>
+
+      <TweakSection label="Palette">
+        <TweakColor label="Theme" value={t.palette} onChange={v => setTweak('palette', v)} options={[
+          ['#f5f2ec', '#1a1a1a', '#c08552'],
+          ['#fafafa', '#0a0a0a', '#2a6fdb'],
+          ['#0f0f10', '#f5f2ec', '#d4a574'],
+          ['#eef2ee', '#1a2421', '#3d8168'],
+          ['#fdf6ec', '#2b1810', '#a83737']
+        ]} />
+      </TweakSection>
+
+      <TweakSection label="Typography">
+        <TweakSelect label="Display font" value={t.displayFont} options={['Newsreader', 'Fraunces', 'Instrument Serif']} onChange={v => setTweak('displayFont', v)} />
+        <TweakSelect label="Body font" value={t.bodyFont} options={['Inter', 'Space Grotesk']} onChange={v => setTweak('bodyFont', v)} />
+      </TweakSection>
+
+      <TweakSection label="Layout">
+        <TweakSlider label="Section spacing" min={60} max={220} step={10} value={t.density} onChange={v => setTweak('density', v)} />
+        <TweakSlider label="Corner radius" min={0} max={999} step={1} value={t.radius} onChange={v => setTweak('radius', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+function mix(a, b, w) {
+  const pa = parse(a), pb = parse(b);
+  const r = Math.round(pa[0]*(1-w) + pb[0]*w);
+  const g = Math.round(pa[1]*(1-w) + pb[1]*w);
+  const bl = Math.round(pa[2]*(1-w) + pb[2]*w);
+  return `rgb(${r}, ${g}, ${bl})`;
+}
+function parse(c) {
+  const h = c.replace('#','');
+  const f = h.length === 3 ? h.split('').map(x=>x+x).join('') : h;
+  return [parseInt(f.slice(0,2),16), parseInt(f.slice(2,4),16), parseInt(f.slice(4,6),16)];
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+</script>
+
+<style>
+  body.no-dropcap .about-prose p:first-of-type::first-letter {
+    font-size: inherit; float: none; padding: 0; color: inherit; font-family: inherit;
+  }
+</style>
+
+</body>
+</html>
